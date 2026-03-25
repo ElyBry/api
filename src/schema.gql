@@ -1,0 +1,95 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  author: String
+  id: Int!
+  is_deleted: Boolean!
+  isbn: String!
+  publication_year: Int
+  title: String
+}
+
+input BooksFilterInput {
+  author: String
+  isbn: String
+  onlyWithTitle: Boolean
+  publication_year: Int
+  title: String
+}
+
+type Cabinet {
+  id: Int!
+  is_deleted: Boolean!
+  number: String!
+}
+
+input CreateBookInput {
+  author: String
+  isbn: String!
+  publication_year: Int
+  title: String
+}
+
+input CreateCabinetInput {
+  number: String!
+}
+
+input CreateUserInput {
+  email: String!
+  full_name: String!
+  phone: String
+}
+
+type IdResult {
+  id: Int!
+}
+
+type Mutation {
+  createBook(input: CreateBookInput!): Book!
+  createCabinet(input: CreateCabinetInput!): Cabinet!
+  createUser(input: CreateUserInput!): User!
+  deleteBook(id: Int!): IdResult!
+  deleteCabinet(id: Int!): IdResult!
+  deleteUser(id: Int!): IdResult!
+  updateBook(id: Int!, input: UpdateBookInput!): Book
+  updateCabinet(id: Int!, input: UpdateCabinetInput!): Cabinet
+  updateUser(id: Int!, input: UpdateUserInput!): User
+}
+
+type Query {
+  book(id: Int!): Book
+  bookByIsbn(isbn: String!): Book
+  books(filter: BooksFilterInput, limit: Int, page: Int): [Book!]!
+  cabinet(id: Int!): Cabinet
+  cabinets(limit: Int, page: Int): [Cabinet!]!
+  user(id: Int!): User
+  users(limit: Int, page: Int): [User!]!
+  usersDeleted(limit: Int, page: Int): [User!]!
+}
+
+input UpdateBookInput {
+  author: String
+  isbn: String
+  publication_year: Int
+  title: String
+}
+
+input UpdateCabinetInput {
+  number: String
+}
+
+input UpdateUserInput {
+  email: String
+  full_name: String
+  phone: String
+}
+
+type User {
+  email: String!
+  full_name: String!
+  id: Int!
+  is_deleted: Boolean!
+  phone: String
+}
