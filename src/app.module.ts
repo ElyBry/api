@@ -8,6 +8,8 @@ import { DatabaseModule } from './database/database.module';
 import { CabinetsModule } from './cabinets/cabinets.module';
 import { BooksModule } from './books/books.module';
 import { UsersModule } from './users/users.module';
+import { WsTestModule } from './ws-test/ws-test.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { UsersModule } from './users/users.module';
     CabinetsModule,
     BooksModule,
     UsersModule,
+    WsTestModule,
+    ChatModule,
   ],
 })
 export class AppModule {}

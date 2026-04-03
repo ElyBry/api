@@ -1,0 +1,740 @@
+asyncapi: '2.6.0'
+info:
+  title: Library API (WebSocket)
+  version: '1.0.0'
+  description: >
+    WebSocket events for Cabinets, Books, Users, and Chat (namespace `/chat`).
+    Request messages for CRUD contain `requestId` and server replies echo it back.
+
+channels:
+  books.list:
+    subscribe:
+      operationId: booksList
+      message:
+        $ref: '#/components/messages/BooksListRequest'
+
+  books.list.result:
+    publish:
+      operationId: booksListResult
+      message:
+        $ref: '#/components/messages/BooksListResult'
+
+  books.byIsbn:
+    subscribe:
+      operationId: booksByIsbn
+      message:
+        $ref: '#/components/messages/BooksByIsbnRequest'
+
+  books.byIsbn.result:
+    publish:
+      operationId: booksByIsbnResult
+      message:
+        $ref: '#/components/messages/BooksByIsbnResult'
+
+  books.byId:
+    subscribe:
+      operationId: booksById
+      message:
+        $ref: '#/components/messages/BooksByIdRequest'
+
+  books.byId.result:
+    publish:
+      operationId: booksByIdResult
+      message:
+        $ref: '#/components/messages/BooksByIdResult'
+
+  books.create:
+    subscribe:
+      operationId: booksCreate
+      message:
+        $ref: '#/components/messages/BooksCreateRequest'
+
+  books.create.result:
+    publish:
+      operationId: booksCreateResult
+      message:
+        $ref: '#/components/messages/BooksCreateResult'
+
+  books.update:
+    subscribe:
+      operationId: booksUpdate
+      message:
+        $ref: '#/components/messages/BooksUpdateRequest'
+
+  books.update.result:
+    publish:
+      operationId: booksUpdateResult
+      message:
+        $ref: '#/components/messages/BooksUpdateResult'
+
+  books.delete:
+    subscribe:
+      operationId: booksDelete
+      message:
+        $ref: '#/components/messages/BooksDeleteRequest'
+
+  books.delete.result:
+    publish:
+      operationId: booksDeleteResult
+      message:
+        $ref: '#/components/messages/BooksDeleteResult'
+
+  cabinets.list:
+    subscribe:
+      operationId: cabinetsList
+      message:
+        $ref: '#/components/messages/CabinetsListRequest'
+  cabinets.list.result:
+    publish:
+      operationId: cabinetsListResult
+      message:
+        $ref: '#/components/messages/CabinetsListResult'
+
+  cabinets.byId:
+    subscribe:
+      operationId: cabinetsById
+      message:
+        $ref: '#/components/messages/CabinetsByIdRequest'
+  cabinets.byId.result:
+    publish:
+      operationId: cabinetsByIdResult
+      message:
+        $ref: '#/components/messages/CabinetsByIdResult'
+
+  cabinets.create:
+    subscribe:
+      operationId: cabinetsCreate
+      message:
+        $ref: '#/components/messages/CabinetsCreateRequest'
+  cabinets.create.result:
+    publish:
+      operationId: cabinetsCreateResult
+      message:
+        $ref: '#/components/messages/CabinetsCreateResult'
+
+  cabinets.update:
+    subscribe:
+      operationId: cabinetsUpdate
+      message:
+        $ref: '#/components/messages/CabinetsUpdateRequest'
+  cabinets.update.result:
+    publish:
+      operationId: cabinetsUpdateResult
+      message:
+        $ref: '#/components/messages/CabinetsUpdateResult'
+
+  cabinets.delete:
+    subscribe:
+      operationId: cabinetsDelete
+      message:
+        $ref: '#/components/messages/CabinetsDeleteRequest'
+  cabinets.delete.result:
+    publish:
+      operationId: cabinetsDeleteResult
+      message:
+        $ref: '#/components/messages/CabinetsDeleteResult'
+
+  users.list:
+    subscribe:
+      operationId: usersList
+      message:
+        $ref: '#/components/messages/UsersListRequest'
+  users.list.result:
+    publish:
+      operationId: usersListResult
+      message:
+        $ref: '#/components/messages/UsersListResult'
+
+  users.deleted.list:
+    subscribe:
+      operationId: usersDeletedList
+      message:
+        $ref: '#/components/messages/UsersListRequest'
+  users.deleted.list.result:
+    publish:
+      operationId: usersDeletedListResult
+      message:
+        $ref: '#/components/messages/UsersListResult'
+
+  users.byId:
+    subscribe:
+      operationId: usersById
+      message:
+        $ref: '#/components/messages/UsersByIdRequest'
+  users.byId.result:
+    publish:
+      operationId: usersByIdResult
+      message:
+        $ref: '#/components/messages/UsersByIdResult'
+
+  users.create:
+    subscribe:
+      operationId: usersCreate
+      message:
+        $ref: '#/components/messages/UsersCreateRequest'
+  users.create.result:
+    publish:
+      operationId: usersCreateResult
+      message:
+        $ref: '#/components/messages/UsersCreateResult'
+
+  users.update:
+    subscribe:
+      operationId: usersUpdate
+      message:
+        $ref: '#/components/messages/UsersUpdateRequest'
+  users.update.result:
+    publish:
+      operationId: usersUpdateResult
+      message:
+        $ref: '#/components/messages/UsersUpdateResult'
+
+  users.delete:
+    subscribe:
+      operationId: usersDelete
+      message:
+        $ref: '#/components/messages/UsersDeleteRequest'
+  users.delete.result:
+    publish:
+      operationId: usersDeleteResult
+      message:
+        $ref: '#/components/messages/UsersDeleteResult'
+
+  chat.login:
+    subscribe:
+      operationId: chatLogin
+      message:
+        $ref: '#/components/messages/ChatLoginRequest'
+
+  chat.message:
+    subscribe:
+      operationId: chatMessageSend
+      message:
+        $ref: '#/components/messages/ChatMessageRequest'
+    publish:
+      operationId: chatMessageReceive
+      message:
+        $ref: '#/components/messages/ChatMessageEvent'
+
+  chat.system:
+    publish:
+      operationId: chatSystem
+      message:
+        $ref: '#/components/messages/ChatSystemEvent'
+
+  chat.error:
+    publish:
+      operationId: chatError
+      message:
+        $ref: '#/components/messages/ChatErrorEvent'
+
+components:
+  messages:
+    BooksListRequest:
+      name: BooksListRequest
+      title: BooksListRequest
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          page:
+            type: integer
+            nullable: true
+          limit:
+            type: integer
+            nullable: true
+          filter:
+            type: object
+            nullable: true
+            properties:
+              isbn:
+                type: string
+                nullable: true
+              title:
+                type: string
+                nullable: true
+              author:
+                type: string
+                nullable: true
+              publication_year:
+                type: integer
+                nullable: true
+              onlyWithTitle:
+                type: boolean
+                nullable: true
+    BooksListResult:
+      name: BooksListResult
+      title: BooksListResult
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            type: array
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    BooksByIsbnRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          isbn:
+            type: string
+
+    BooksByIsbnResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    BooksByIdRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+
+    BooksByIdResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    BooksCreateRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          input:
+            type: object
+            properties:
+              isbn:
+                type: string
+              title:
+                type: string
+                nullable: true
+              author:
+                type: string
+                nullable: true
+              publication_year:
+                type: integer
+                nullable: true
+
+    BooksCreateResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    BooksUpdateRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+          input:
+            type: object
+            properties:
+              isbn:
+                type: string
+                nullable: true
+              title:
+                type: string
+                nullable: true
+              author:
+                type: string
+                nullable: true
+              publication_year:
+                type: integer
+                nullable: true
+
+    BooksUpdateResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    BooksDeleteRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+
+    BooksDeleteResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    CabinetsListRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          page:
+            type: integer
+            nullable: true
+          limit:
+            type: integer
+            nullable: true
+
+    CabinetsListResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            type: array
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    CabinetsByIdRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+
+    CabinetsByIdResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    CabinetsCreateRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          input:
+            type: object
+            properties:
+              number:
+                type: string
+
+    CabinetsCreateResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    CabinetsUpdateRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+          input:
+            type: object
+            properties:
+              number:
+                type: string
+                nullable: true
+
+    CabinetsUpdateResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    CabinetsDeleteRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+
+    CabinetsDeleteResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    UsersListRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          page:
+            type: integer
+            nullable: true
+          limit:
+            type: integer
+            nullable: true
+
+    UsersListResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            type: array
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    UsersByIdRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+
+    UsersByIdResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    UsersCreateRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          input:
+            type: object
+            properties:
+              full_name:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+                nullable: true
+
+    UsersCreateResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    UsersUpdateRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+          input:
+            type: object
+            properties:
+              full_name:
+                type: string
+                nullable: true
+              email:
+                type: string
+                nullable: true
+              phone:
+                type: string
+                nullable: true
+
+    UsersUpdateResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    UsersDeleteRequest:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          id:
+            type: integer
+
+    UsersDeleteResult:
+      payload:
+        type: object
+        properties:
+          requestId:
+            type: string
+            nullable: true
+          data:
+            nullable: true
+          error:
+            type: string
+            nullable: true
+
+    ChatLoginRequest:
+      payload:
+        type: object
+        properties:
+          login:
+            type: string
+
+    ChatMessageRequest:
+      payload:
+        type: object
+        properties:
+          text:
+            type: string
+
+    ChatSystemEvent:
+      payload:
+        type: object
+        properties:
+          text:
+            type: string
+
+    ChatErrorEvent:
+      payload:
+        type: object
+        properties:
+          code:
+            type: string
+            nullable: true
+          text:
+            type: string
+            nullable: true
+
+    ChatMessageEvent:
+      payload:
+        type: object
+        properties:
+          login:
+            type: string
+          text:
+            type: string
+          line:
+            type: string
+            description: "Формат «Логин: сообщение»"
+          ts:
+            type: string
+            format: date-time
+

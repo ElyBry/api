@@ -63,6 +63,7 @@ npm run build && npm run start:prod
 |-----|-----|----------|
 | **REST + Swagger** | http://localhost:3000/api | Документация и «Try it out» для всех REST-эндпоинтов (POST/GET/PUT/DELETE). |
 | **GraphQL** | http://localhost:3000/graphql | GraphiQL / Apollo Sandbox: автодополнение, схема, выполнение запросов и мутаций. |
+| **WebSocket (socket.io)** | http://localhost:3000 | События в `asyncapi.yml`. Быстрая проверка: `npm run ws:test`. |
 
 - **REST** тестируйте через Swagger: откройте `/api`, выберите метод, нажмите «Try it out», введите параметры и «Execute».
 - **GraphQL** тестируйте в браузере по адресу `/graphql`: пишите запросы (например `query { cabinets { id number } }`) и мутации (например `mutation { createCabinet(input: { number: "A-1" }) { id number } }`).
